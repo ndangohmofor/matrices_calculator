@@ -46,4 +46,12 @@ public class MatricesGenerator {
         }
         fileWriter.write('\n');
     }
+
+    public static void createMatrices(FileWriter fileWriter) throws IOException {
+        Random random = new Random();
+        for (int i = 0; i < NUMBER_OF_MATRICES_PAIRS * 2; i++){
+            float[][] matrix = createMatrix(random);
+            saveMatrixToFile(fileWriter, matrix);
+        }
+    }
 }
