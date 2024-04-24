@@ -1,10 +1,22 @@
 package org.example;
 
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class MainApplication {
     public static void main(String[] args) {
+    }
+
+    private static class MatricesReaderProducer extends Thread {
+        private Scanner scanner;
+        private ThreadSafeQueue queue;
+
+        public MatricesReaderProducer(FileReader reader, ThreadSafeQueue queue){
+            this.scanner = new Scanner(reader);
+            this.queue = queue;
+        }
     }
 
     private static class ThreadSafeQueue {
