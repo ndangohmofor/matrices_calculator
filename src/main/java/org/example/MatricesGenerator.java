@@ -27,10 +27,18 @@ public class MatricesGenerator {
         return row;
     }
 
+    public static float[][] createMatrix(Random random) {
+        float matrix[][] = new float[N][N];
+        for (int i = 0; i < N; i++) {
+            matrix[i] = createRow(random);
+        }
+        return matrix;
+    }
+
     private static void saveMatrixToFile(FileWriter fileWriter, float[][] matrix) throws IOException {
-        for (int r = 0; r < N; r++){
+        for (int r = 0; r < N; r++) {
             StringJoiner stringJoiner = new StringJoiner(", ");
-            for (int c = 0; c < N; c++){
+            for (int c = 0; c < N; c++) {
                 stringJoiner.add(String.format("%.2f", matrix[r][c]));
             }
             fileWriter.write(stringJoiner.toString());
