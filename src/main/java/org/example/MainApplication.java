@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -9,6 +10,23 @@ public class MainApplication {
     private static final int N = 10;
 
     public static void main(String[] args) {
+    }
+
+    private static class MatricesMultiplierConsumer extends Thread {
+        private ThreadSafeQueue queue;
+        private FileWriter fileWriter;
+    }
+
+    private float[][] multiplyMatrices(float[][] m1, float[][] m2) {
+        float[][] result = new float[N][N];
+        for (int r = 0; r < N; r++) {
+            for (int c = 0; c < N; c++) {
+                for (int k = 0; k < N; k++) {
+                    result[r][c] += m1[r][k] * m2[k][c];
+                }
+            }
+            return result;
+        }
     }
 
     private static class MatricesReaderProducer extends Thread {
