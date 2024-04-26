@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -23,16 +24,29 @@ public class MainApplication {
 
         @Override
         public void run() {
-
+            while (true) {
+                MatricesPair matricesPair = queue.remove();
+                if (matricesPair == null) {
+                    System.out.println("No more matrices to read from the queue. Consumer is terminating");
+                    break;
+                }
+                float[][] result = multiplyMatrices(matricesPair.matrix1, matricesPair.matrix2);
+            }
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
 
-    private float[][] multiplyMatrices(float[][] m1, float[][] m2) {
-        float[][] result = new float[N][N];
-        for (int r = 0; r < N; r++) {
-            for (int c = 0; c < N; c++) {
-                for (int k = 0; k < N; k++) {
-                    result[r][c] += m1[r][k] * m2[k][c];
+        private float[][] multiplyMatrices(float[][] m1, float[][] m2) {
+            float[][] result = new float[N][N];
+            for (int r = 0; r < N; r++) {
+                for (int c = 0; c < N; c++) {
+                    for (int k = 0; k < N; k++) {
+                        result[r][c] += m1[r][k] * m2[k][c];
+                    }
                 }
             }
             return result;
