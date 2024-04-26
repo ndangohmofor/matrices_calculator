@@ -15,6 +15,16 @@ public class MainApplication {
     private static class MatricesMultiplierConsumer extends Thread {
         private ThreadSafeQueue queue;
         private FileWriter fileWriter;
+
+        public MatricesMultiplierConsumer(FileWriter fileWriter, ThreadSafeQueue queue) {
+            this.fileWriter = fileWriter;
+            this.queue = queue;
+        }
+
+        @Override
+        public void run() {
+
+        }
     }
 
     private float[][] multiplyMatrices(float[][] m1, float[][] m2) {
