@@ -20,6 +20,24 @@ public class MainApplication {
             this.queue = queue;
         }
 
+        @Override
+        public void run() {
+            while (true) {
+                float[][] matrix1 = readMatrix();
+                float[][] matrix2 = readMatrix();
+                if (matrix2 == null || matrix1 == null) {
+                    queue.terminate();
+                    System.out.println("No more matrices to read. Producer Thread is terminating");
+                    return;
+                }
+                MatricesPair matricesPair = new MatricesPair();
+                matricesPair.matrix1 = matrix1;
+                matricesPair.matrix2 = matrix2;
+
+                queue.add(matricesPair);
+            }
+        }
+
         private float[][] readMatrix() {
             float[][] matrix = new float[N][N];
             for (int r = 0; r < N; r++) {
@@ -72,6 +90,6 @@ public class MainApplication {
 
     public static class MatricesPair {
         public float[][] matrix1;
-        public float[][] getMatrix2;
+        public float[][] matrix2;
     }
 }
