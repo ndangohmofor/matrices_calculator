@@ -1,8 +1,6 @@
 package org.example;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -10,8 +8,19 @@ import java.util.StringJoiner;
 
 public class MainApplication {
     private static final int N = 10;
+    public static final String INPUT_FILE = "./out/matrices";
+    public static final String OUTPUT_FILE = "./out/matrices_results.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        ThreadSafeQueue threadSafeQueue = new ThreadSafeQueue();
+        File inputFile = new File(INPUT_FILE);
+        File outputFile = new File(OUTPUT_FILE);
+
+        MatricesReaderProducer matricesReaderProducer = new MatricesReaderProducer(new FileReader(inputFile), threadSafeQueue);
+        MatricesMultiplierConsumer matricesMultiplierConsumer = new MatricesMultiplierConsumer(new FileWriter(outputFile), threadSafeQueue);
+
+        matricesMultiplierConsumer.start();
+        matricesReaderProducer.start();
     }
 
     private static class MatricesMultiplierConsumer extends Thread {
