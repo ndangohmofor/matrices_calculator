@@ -32,6 +32,7 @@ public class MainApplication {
                 writer.write(stringJoiner.toString());
                 writer.write('\n');
             }
+            writer.write('\n');
         }
 
         @Override
