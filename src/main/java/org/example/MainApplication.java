@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.StringJoiner;
 
 public class MainApplication {
     private static final int N = 10;
@@ -20,6 +21,17 @@ public class MainApplication {
         public MatricesMultiplierConsumer(FileWriter fileWriter, ThreadSafeQueue queue) {
             this.fileWriter = fileWriter;
             this.queue = queue;
+        }
+
+        private static void saveMatrixToFile(FileWriter writer, float[][] matrix) throws IOException {
+            for (int r = 0; r < N; r++) {
+                StringJoiner stringJoiner = new StringJoiner(", ");
+                for (int c = 0; c < N; c++) {
+                    stringJoiner.add(String.format("%.2f", matrix[r][c]));
+                }
+                writer.write(stringJoiner.toString());
+                writer.write('\n');
+            }
         }
 
         @Override
