@@ -53,6 +53,11 @@ public class MainApplication {
                     break;
                 }
                 float[][] result = multiplyMatrices(matricesPair.matrix1, matricesPair.matrix2);
+
+                try {
+                    saveMatrixToFile(fileWriter, result);
+                } catch (IOException e) {
+                }
             }
             try {
                 fileWriter.flush();
